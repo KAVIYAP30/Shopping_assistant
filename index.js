@@ -10,6 +10,8 @@ const listSelector = document.getElementById('list-selector');
 const newListButton = document.getElementById('new-list');
 const shareListButton = document.getElementById('share-list');
 const recommendationDisplay = document.getElementById('recommendation-display');
+const voiceSearchButton = document.getElementById('voice-search');
+const voiceStatus = document.getElementById('voice-status');
 
 const aisles = document.querySelectorAll('.aisle');
 let shoppingLists = JSON.parse(localStorage.getItem('shoppingLists')) || { default: [] };
@@ -154,7 +156,6 @@ newListButton.addEventListener('click', () => {
   }
 });
 
-// Share the current list
 shareListButton.addEventListener('click', () => {
   const currentListItems = shoppingLists[currentList];
   const listContent = currentListItems.map(item => `${item.item} (${item.aisle})`).join('\n');
@@ -188,3 +189,56 @@ aisles.forEach(aisle => {
     selectedAisle = aisle.textContent.toLowerCase();
   });
 });
+
+
+const toggleThemeButton = document.getElementById('toggle-theme');
+
+// Check if a theme is already set in localStorage
+const currentTheme = localStorage.getItem('theme');
+if (currentTheme) {
+  document.body.classList.add(currentTheme);
+  toggleThemeButton.textContent = currentTheme === 'dark' ? '🌙 Dark Mode' : '🌞 Light Mode';
+}
+
+toggleThemeButton.addEventListener('click', () => {
+  const isDarkMode = document.body.classList.contains('dark');
+
+  // Toggle theme and update localStorage
+  if (isDarkMode) {
+    document.body.classList.remove('dark');
+    document.body.classList.add('light');
+    toggleThemeButton.textContent = '🌙 Dark Mode';
+    localStorage.setItem('theme', 'light');
+  } else {
+    document.body.classList.remove('light');
+    document.body.classList.add('dark');
+    toggleThemeButton.textContent = '🌞 Light Mode';
+    localStorage.setItem('theme', 'dark');
+  }
+});
+
+
+
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.lang = 'en-US';
+recognition.interimResults = false;
+recognition.maxAlternatives = 1;
+
+voiceSearchButton.addEventListener('click', () => {
+  recognition.start();
+  voiceStatus.textContent = 'Listening...';
+});
+
+recognition.onresult = function(event) {
+  const result = event.results[0][0].transcript.trim().toLowerCase();
+  itemInput.value = result;
+  voiceStatus.textContent = `You said: ${result}`;
+};
+
+recognition.onerror = function(event) {
+  voiceStatus.textContent = `Error occurred: ${event.error}`;
+};
+
+recognition.onend = function() {
+  voiceStatus.textContent = 'Voice recognition is off';
+};
