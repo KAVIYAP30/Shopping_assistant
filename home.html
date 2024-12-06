@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Grocery Shopping Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Smart Grocery Assistant</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="nav-button">Home</a></li>
+          <li><a href="home.html" class="nav-button">Lists</a></li>
+          <li><a href="login.html" class="nav-button">Profile</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <button id="toggle-theme">🌙 Dark Mode</button>
+
+    <main>
+      <section class="shopping-list">
+        <h2>Shopping List</h2>
+        <input type="text" id="item-input" placeholder="Add an item">
+        <button id="add-item">Add</button>
+        <select id="list-selector"></select>
+        <button id="new-list">New List</button>
+        <button id="share-list">Share List</button>
+        <ul id="item-list"></ul>
+        <button id="voice-search">🎤 Voice Search</button>
+        <p id="voice-status">Voice recognition is off</p>
+
+        <label for="recommendation-toggle">Enable Recommendations</label>
+        <input type="checkbox" id="recommendation-toggle">
+        <div id="recommendation-display"></div>
+      </section>
+
+      <section class="previous-chart">
+        <a href="chart.html">
+            <button id="previous-chart-button">📊 Previous Monthly Chart</button>
+        </a>
+        <div id="chart-container"></div>
+    </section>
+    
+
+      <section class="budget">
+        <h2>Budget</h2>
+        <input type="number" id="budget-input" placeholder="Set your budget">
+        <p id="total-cost">Total Cost: $0</p>
+        <p id="remaining-budget">Remaining Budget: $0</p>
+        <div id="budget-message-container"></div>
+      </section>
+
+      <section id="aisles" class="aisle-container">
+        <div class="aisle" id="aisle-dairy">Dairy</div>
+        <div class="aisle" id="aisle-meat">Meat</div>
+        <div class="aisle" id="aisle-produce">Produce</div>
+        <div class="aisle" id="aisle-other">Other</div>
+      </section>
+    </main>
+
+    <div id="notification" class="notification" style="display:none;">
+      List copied to clipboard!
+    </div>
+  </div>
+  
+
+  <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spending Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+
+        canvas {
+            width: 400px;
+            height: 400px;
+        }
+
+        .chart-container {
+            width: 50%;
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Spending Dashboard</h1>
+
+    <div class="container">
+        <!-- Chart for Amount Spent Over the Last 6 Months -->
+        <div class="chart-container">
+            <h2 class="chart-title">Amount Spent (Last 6 Months)</h2>
+            <canvas id="amountSpentChart"></canvas>
+        </div>
+
+        <!-- Chart for Top Frequently Bought Items -->
+        <div class="chart-container">
+            <h2 class="chart-title">Top Frequently Bought Items</h2>
+            <canvas id="topItemsChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Data for Amount Spent (Last 6 Months)
+        const amountSpentData = {
+            labels: ['June', 'July', 'August', 'September', 'October', 'November'],
+            datasets: [{
+                label: 'Amount Spent ($)',
+                data: [200, 450, 300, 600, 500, 400],  // Example data, replace with actual values
+                backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Data for Top Frequently Bought Items
+        const topItemsData = {
+            labels: ['Item A', 'Item B', 'Item C', 'Item D', 'Item E'],  // Example item names
+            datasets: [{
+                label: 'Frequency',
+                data: [25, 45, 35, 20, 15],  // Example frequency, replace with actual data
+                backgroundColor: 'rgba(153, 102, 255, 0.5)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Config for Amount Spent Chart
+        const configAmountSpent = {
+            type: 'bar',
+            data: amountSpentData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Config for Top Frequently Bought Items Chart
+        const configTopItems = {
+            type: 'bar',
+            data: topItemsData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Initialize the charts
+        const amountSpentChart = new Chart(
+            document.getElementById('amountSpentChart'),
+            configAmountSpent
+        );
+
+        const topItemsChart = new Chart(
+            document.getElementById('topItemsChart'),
+            configTopItems
+        );
+    </script>
+
+</body>
+</html>
